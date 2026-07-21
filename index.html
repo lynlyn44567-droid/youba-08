@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08 – A Birthday Experience</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Boot Screen -->
+    <div id="bootScreen" class="screen active">
+        <div class="boot-container">
+            <div class="pixel-basketball"></div>
+            <div class="loading-messages">
+                <div class="message" style="animation-delay: 0s;">CONNECTING TO ARENA...</div>
+                <div class="message" style="animation-delay: 2s;">AUTHENTICATING PLAYER...</div>
+                <div class="message" style="animation-delay: 4s;">LOOKING FOR MVP...</div>
+                <div class="message" style="animation-delay: 6s; font-weight: bold; color: #ff6b35;">MVP FOUND.</div>
+            </div>
+            <div class="arena-lights"></div>
+        </div>
+    </div>
+
+    <!-- Title Screen -->
+    <div id="titleScreen" class="screen">
+        <div class="title-container">
+            <h1 class="glowing-title">08 – A Birthday Experience</h1>
+            <p class="subtitle">Seems like my MVP is ready.</p>
+        </div>
+    </div>
+
+    <!-- Player Card Screen -->
+    <div id="playerCardScreen" class="screen">
+        <div class="player-card-container">
+            <div class="player-card">
+                <div class="card-header">
+                    <span class="team-name">YOUR SQUAD</span>
+                    <span class="overall-rating">99</span>
+                </div>
+                <div class="card-player-name">YOUBA</div>
+                <div class="card-position">POINT GUARD</div>
+                <div class="card-number">#08</div>
+                
+                <div class="attributes-grid">
+                    <div class="attribute">
+                        <div class="attr-name">Court Vision</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 95%"></div>
+                        </div>
+                        <div class="attr-value">95</div>
+                    </div>
+                    <div class="attribute">
+                        <div class="attr-name">Ball Handling</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 98%"></div>
+                        </div>
+                        <div class="attr-value">98</div>
+                    </div>
+                    <div class="attribute">
+                        <div class="attr-name">Basketball IQ</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 99%"></div>
+                        </div>
+                        <div class="attr-value">99</div>
+                    </div>
+                    <div class="attribute">
+                        <div class="attr-name">Competitive Spirit</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 100%"></div>
+                        </div>
+                        <div class="attr-value">100</div>
+                    </div>
+                    <div class="attribute">
+                        <div class="attr-name">Kindness</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 100%"></div>
+                        </div>
+                        <div class="attr-value">100</div>
+                    </div>
+                    <div class="attribute">
+                        <div class="attr-name">Humor</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 99%"></div>
+                        </div>
+                        <div class="attr-value">99</div>
+                    </div>
+                    <div class="attribute">
+                        <div class="attr-name">Making Me Smile</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 100%"></div>
+                        </div>
+                        <div class="attr-value">∞</div>
+                    </div>
+                    <div class="attribute">
+                        <div class="attr-name">Loyalty</div>
+                        <div class="attr-bar">
+                            <div class="attr-fill" style="width: 100%"></div>
+                        </div>
+                        <div class="attr-value">∞</div>
+                    </div>
+                </div>
+                
+                <div class="card-status">🏆 MY MVP</div>
+            </div>
+            <p class="card-prompt">Press ENTER THE COURT to continue</p>
+        </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="mainMenu" class="screen">
+        <div class="menu-container">
+            <h1 class="menu-title">08</h1>
+            <div class="menu-buttons">
+                <button class="menu-btn" data-action="play">PLAY</button>
+                <button class="menu-btn" data-action="settings">SETTINGS</button>
+                <button class="menu-btn" data-action="credits">CREDITS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Menu -->
+    <div id="settingsMenu" class="screen">
+        <div class="settings-container">
+            <h2 class="settings-title">SETTINGS</h2>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label>Master Volume</label>
+                    <input type="range" min="0" max="100" value="80" id="volumeSlider" class="slider">
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="particlesToggle" checked>
+                        Particle Effects
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>
+                        <input type="checkbox" id="glowToggle" checked>
+                        Glow Effects
+                    </label>
+                </div>
+            </div>
+            <button class="menu-btn back-btn" data-action="back">BACK</button>
+        </div>
+    </div>
+
+    <!-- Credits Menu -->
+    <div id="creditsMenu" class="screen">
+        <div class="credits-container">
+            <h2 class="credits-title">CREDITS</h2>
+            <div class="credits-content">
+                <p><strong>Game Director:</strong> Lyna ❤️</p>
+                <p><strong>Concept & Design:</strong> Pure Love</p>
+                <p><strong>Made with:</strong> HTML, CSS, JavaScript & Lots of Heart</p>
+                <p class="credits-footer">This game was created for someone very special.</p>
+            </div>
+            <button class="menu-btn back-btn" data-action="back">BACK</button>
+        </div>
+    </div>
+
+    <!-- Game Screen - Warm Up -->
+    <div id="gameScreen" class="screen">
+        <div class="game-hud">
+            <div class="hud-left">
+                <div class="game-title">WARM-UP</div>
+                <div class="mini-game-counter">
+                    <span id="miniGameNumber">1</span> / 3
+                </div>
+            </div>
+            <div class="hud-right">
+                <div class="score-display">SCORE: <span id="gameScore">0</span></div>
+            </div>
+        </div>
+
+        <!-- Mini Game 1: Catch Basketballs -->
+        <div id="miniGame1" class="mini-game active">
+            <div class="game-instructions">Catch the falling basketballs!</div>
+            <div class="game-area" id="gameArea1">
+                <div id="playerPaddle" class="player-paddle"></div>
+            </div>
+        </div>
+
+        <!-- Mini Game 2: Collect Hearts & Stars -->
+        <div id="miniGame2" class="mini-game">
+            <div class="game-instructions">Collect all the hearts and stars!</div>
+            <div class="game-area" id="gameArea2"></div>
+            <div class="collection-counter">
+                <span id="collectedCount">0</span> / 10
+            </div>
+        </div>
+
+        <!-- Mini Game 3: Basketball Shots -->
+        <div id="miniGame3" class="mini-game">
+            <div class="game-instructions">Make the basketball shots!</div>
+            <div class="game-area" id="gameArea3">
+                <div class="hoop"></div>
+                <div id="ball" class="ball"></div>
+            </div>
+            <div class="shots-counter">
+                <span id="shotsHit">0</span> / 5 shots made
+            </div>
+        </div>
+
+        <!-- Mini Game Complete Message -->
+        <div id="miniGameComplete" class="mini-game-complete">
+            <div class="complete-message">
+                <h2 id="completionTitle">MINI-GAME COMPLETE!</h2>
+                <p id="completionText">Excellent work, MVP!</p>
+                <button class="next-btn" id="nextGameBtn">CONTINUE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Locker Room Screen -->
+    <div id="lockerRoomScreen" class="screen">
+        <div class="locker-room-container">
+            <div class="locker-room-content">
+                <h2 class="locker-title">LOCKER ROOM</h2>
+                <div class="locker-items">
+                    <div class="locker-item">
+                        <div class="item-visual jersey"></div>
+                        <p class="item-name">Jersey #08</p>
+                    </div>
+                    <div class="locker-item">
+                        <div class="item-visual shoes"></div>
+                        <p class="item-name">Golden Curry Shoes</p>
+                    </div>
+                    <div class="locker-item">
+                        <div class="item-visual poster"></div>
+                        <p class="item-name">Golden State Poster</p>
+                    </div>
+                </div>
+                <div class="locker-note">
+                    💌 I'll always be supporting you through everything.
+                </div>
+            </div>
+            <button class="menu-btn" id="halftimeBtn">HALFTIME</button>
+        </div>
+    </div>
+
+    <!-- Halftime Screen - Memory Cards -->
+    <div id="halftimeScreen" class="screen">
+        <div class="halftime-container">
+            <h2 class="halftime-title">HALFTIME - FAVORITE MEMORIES</h2>
+            <div class="memory-cards">
+                <div class="memory-card">
+                    <div class="memory-icon">😴</div>
+                    <p class="memory-title">Favorite Habit</p>
+                    <p class="memory-text">Falling asleep on call ❤️</p>
+                </div>
+                <div class="memory-card">
+                    <div class="memory-icon">🎭</div>
+                    <p class="memory-title">Favorite Nickname</p>
+                    <p class="memory-text">My MVP</p>
+                </div>
+                <div class="memory-card">
+                    <div class="memory-icon">💪</div>
+                    <p class="memory-title">Favorite Quality</p>
+                    <p class="memory-text">Your unwavering strength</p>
+                </div>
+                <div class="memory-card">
+                    <div class="memory-icon">✨</div>
+                    <p class="memory-title">Favorite Moment</p>
+                    <p class="memory-text">Every moment with you</p>
+                </div>
+            </div>
+            <button class="menu-btn" id="secondHalfBtn">START SECOND HALF</button>
+        </div>
+    </div>
+
+    <!-- Game Complete Screen -->
+    <div id="gameCompleteScreen" class="screen">
+        <div class="celebration-container">
+            <div class="confetti"></div>
+            <h2 class="celebration-title">YOU DID IT!</h2>
+            <p class="celebration-message">MVP, you crushed it out there!</p>
+        </div>
+    </div>
+
+    <!-- Birthday Letter Screen -->
+    <div id="birthdayLetterScreen" class="screen">
+        <div class="letter-container">
+            <div class="letter">
+                <h3 class="letter-greeting">Happy Birthday, My MVP!</h3>
+                <p id="letterContent" class="letter-content"></p>
+                <button class="voice-btn" id="voiceMessageBtn">🎤 Play Voice Message</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ending Screen -->
+    <div id="endingScreen" class="screen">
+        <div class="ending-container">
+            <div class="court-spotlight">
+                <div class="spotlight-beam"></div>
+                <div class="final-basketball"></div>
+            </div>
+            <h2 class="ending-title">See you next season, MVP.</h2>
+            <p class="ending-credit">Made with love by Lyna ❤️</p>
+            <button class="menu-btn" id="restartBtn">PLAY AGAIN</button>
+        </div>
+    </div>
+
+    <!-- Audio Elements (for voice message) -->
+    <audio id="voiceMessageAudio"></audio>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
