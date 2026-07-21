@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>08 – A Birthday Experience</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Audio Context / Sound Effects container (handled via JS synth) -->
+  <div id="game-container">
+
+    <!-- 1. BOOT SCREEN -->
+    <div id="boot-screen" class="screen active">
+      <div class="pixel-ball-container">
+        <div class="pixel-ball"></div>
+        <div class="pixel-shadow"></div>
+      </div>
+      <div id="boot-text" class="glow-text">BOOTING ARENA OS...</div>
+      <div class="progress-bar-container">
+        <div id="boot-progress" class="progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- 2. INTRO / MVP REVEAL SCREEN -->
+    <div id="intro-screen" class="screen hidden">
+      <div class="spotlight-overlay"></div>
+      <h1 class="title-2k glow-orange">08 – A BIRTHDAY EXPERIENCE</h1>
+      <p class="subtitle-cozy">Seems like my MVP is ready.</p>
+      
+      <!-- NBA 2K STYLE PLAYER CARD -->
+      <div class="player-card">
+        <div class="card-header">
+          <div class="ovr-badge">
+            <span class="ovr-num">99</span>
+            <span class="ovr-label">OVR</span>
+          </div>
+          <div class="player-identity">
+            <h2 class="player-name">YOUBA</h2>
+            <div class="player-sub">PG • #08 • GOLDEN STATE VIBES</div>
+          </div>
+        </div>
+
+        <div class="card-stats">
+          <div class="stat-row"><span>Court Vision</span><div class="bar"><div style="width: 99%"></div></div><span>99</span></div>
+          <div class="stat-row"><span>Ball Handling</span><div class="bar"><div style="width: 98%"></div></div><span>98</span></div>
+          <div class="stat-row"><span>Basketball IQ</span><div class="bar"><div style="width: 99%"></div></div><span>99</span></div>
+          <div class="stat-row"><span>Competitive Spirit</span><div class="bar"><div style="width: 99%"></div></div><span>99</span></div>
+          <div class="stat-row"><span>Kindness</span><div class="bar"><div style="width: 100%"></div></div><span>100</span></div>
+          <div class="stat-row"><span>Humor</span><div class="bar"><div style="width: 100%"></div></div><span>100</span></div>
+          <div class="stat-row highlight"><span>Making Me Smile</span><span class="stat-inf">∞</span></div>
+          <div class="stat-row highlight"><span>Loyalty</span><span class="stat-inf">∞</span></div>
+        </div>
+
+        <div class="card-footer">
+          <span class="badge-trophy">🏆 MY MVP</span>
+        </div>
+      </div>
+
+      <button id="enter-court-btn" class="btn-2k">ENTER THE COURT</button>
+    </div>
+
+    <!-- 3. MAIN MENU SCREEN -->
+    <div id="menu-screen" class="screen hidden">
+      <div class="menu-overlay"></div>
+      <h1 class="menu-title glow-purple">MAIN MENU</h1>
+      <div class="menu-options">
+        <button id="start-game-btn" class="btn-menu">▶ PLAY WARM-UP</button>
+        <button id="credits-btn" class="btn-menu">🎬 CREDITS</button>
+      </div>
+
+      <!-- CREDITS MODAL -->
+      <div id="credits-modal" class="modal hidden">
+        <div class="modal-content">
+          <h2>CREDITS</h2>
+          <p><strong>Game Director:</strong> Lyna ❤️</p>
+          <p><strong>Lead Star:</strong> Youba (#08)</p>
+          <p><strong>Vibe:</strong> Infinite Love & 2K Aesthetics</p>
+          <button id="close-credits-btn" class="btn-small">BACK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. GAMEPLAY SCREEN (CANVAS MINI-GAME) -->
+    <div id="gameplay-screen" class="screen hidden">
+      <div class="hud">
+        <div class="hud-item">POINTS: <span id="score-display">0</span>/15</div>
+        <div class="hud-item glow-orange">PHASE 1: ARENA WARM-UP</div>
+      </div>
+      <canvas id="game-canvas"></canvas>
+      <div class="controls-hint">Tap / Click & Drag or use Left/Right Arrow keys to catch hearts & basketballs!</div>
+    </div>
+
+    <!-- 5. LOCKER ROOM EXPLORATION -->
+    <div id="locker-screen" class="screen hidden">
+      <h2 class="section-title glow-blue">COZY LOCKER ROOM</h2>
+      <p class="section-subtitle">Tap on objects to inspect your locker...</p>
+
+      <div class="locker-container">
+        <!-- Hotspots -->
+        <div class="locker-item" id="item-jersey" data-msg="Jersey #08: Retired in my heart forever.">
+          <div class="pixel-art jersey-art">#08</div>
+          <span>Jersey #08</span>
+        </div>
+
+        <div class="locker-item" id="item-currys" data-msg="Pink & Purple Curry Shoes: Custom drip for the sharpest shooter!">
+          <div class="pixel-art shoes-art">👟</div>
+          <span>Curry Shoes</span>
+        </div>
+
+        <div class="locker-item" id="item-poster" data-msg="Golden State Poster: Champions vibe only.">
+          <div class="pixel-art poster-art">🖼️</div>
+          <span>GSW Poster</span>
+        </div>
+
+        <div class="locker-item" id="item-note" data-msg="I'll always be supporting you through everything. ❤️">
+          <div class="pixel-art note-art">💌</div>
+          <span>Secret Note</span>
+        </div>
+      </div>
+
+      <div id="locker-dialogue" class="dialogue-box">Click around the room to find a message...</div>
+
+      <button id="finish-locker-btn" class="btn-2k hidden">PROCEED TO FINAL SHOT ▶</button>
+    </div>
+
+    <!-- 6. FINAL SHOT MINI-GAME -->
+    <div id="shot-screen" class="screen hidden">
+      <h2 class="glow-orange">THE FINAL MVP SHOT</h2>
+      <p>Tap "SHOOT" when the bar reaches the green target zone!</p>
+
+      <div class="shot-meter-container">
+        <div class="shot-meter-target"></div>
+        <div id="shot-meter-indicator" class="shot-meter-indicator"></div>
+      </div>
+
+      <button id="shoot-btn" class="btn-2k">🏀 SHOOT!</button>
+      <div id="shot-feedback" class="shot-feedback"></div>
+    </div>
+
+    <!-- 7. BIRTHDAY LETTER SCREEN -->
+    <div id="letter-screen" class="screen hidden">
+      <div class="letter-card">
+        <h2 class="letter-title">HAPPY BIRTHDAY, MY MVP ❤️</h2>
+        <div id="typewriter-text" class="typewriter-content"></div>
+      </div>
+      <button id="letter-next-btn" class="btn-2k hidden">CONTINUE ▶</button>
+    </div>
+
+    <!-- 8. OUTRO / FINAL SCREEN -->
+    <div id="outro-screen" class="screen hidden">
+      <div class="spotlight"></div>
+      <div class="ball-center">🏀</div>
+      <h1 class="outro-text glow-orange">See you next season, MVP.</h1>
+      <p class="outro-sub">Made with love by Lyna ❤️</p>
+    </div>
+
+    <!-- FLOATING LOVE MESSAGES CONTAINER -->
+    <div id="floating-popups"></div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
