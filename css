@@ -1,0 +1,472 @@
+/* ==========================================================================
+   GLOBAL & PALETTE DEFINITIONS
+   Palette: Black (#0a0a0c), Basketball Orange (#ff6b00), Purple (#8a2be2), Baby Blue (#38b6ff)
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  font-family: 'Courier New', Courier, monospace, sans-serif;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  background-color: #050508;
+  color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-container {
+  width: 100vw;
+  max-width: 480px;
+  height: 100vh;
+  max-height: 860px;
+  background: #0a0a0c;
+  position: relative;
+  border: 2px solid #ff6b00;
+  box-shadow: 0 0 25px rgba(255, 107, 0, 0.3), 0 0 15px rgba(138, 43, 226, 0.3);
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Screen visibility state */
+.screen {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 10;
+}
+
+.screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glow Effects */
+.glow-orange { color: #ff6b00; text-shadow: 0 0 10px #ff6b00; }
+.glow-purple { color: #b565ff; text-shadow: 0 0 10px #8a2be2; }
+.glow-blue { color: #38b6ff; text-shadow: 0 0 10px #38b6ff; }
+.glow-text { animation: pulseGlow 1.5s infinite alternate; }
+
+@keyframes pulseGlow {
+  0% { text-shadow: 0 0 5px #ff6b00, 0 0 10px #ff6b00; }
+  100% { text-shadow: 0 0 15px #38b6ff, 0 0 25px #8a2be2; }
+}
+
+/* ==========================================================================
+   BUTTONS (2K STYLE)
+   ========================================================================== */
+.btn-2k, .btn-menu {
+  background: linear-gradient(135deg, #ff6b00, #8a2be2);
+  border: 2px solid #ffffff;
+  color: #fff;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
+  transition: transform 0.1s, box-shadow 0.2s;
+  margin-top: 15px;
+}
+
+.btn-2k:active, .btn-menu:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(138, 43, 226, 0.6);
+}
+
+.btn-small {
+  background: #38b6ff;
+  border: none;
+  color: #000;
+  padding: 6px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   1. BOOT SCREEN
+   ========================================================================== */
+.pixel-ball-container {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.pixel-ball {
+  width: 40px; height: 40px;
+  background: #ff6b00;
+  border-radius: 50%;
+  border: 3px solid #000;
+  position: relative;
+  animation: bounce 0.6s infinite alternate cubic-bezier(0.5, 0.05, 1, 0.5);
+}
+
+.pixel-ball::before {
+  content: '';
+  position: absolute;
+  top: 17px; left: 0; width: 34px; height: 3px;
+  background: #000;
+}
+
+.pixel-shadow {
+  width: 30px; height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 10px auto 0 auto;
+  animation: shadowScale 0.6s infinite alternate cubic-bezier(0.5, 0.05, 1, 0.5);
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-70px); }
+}
+
+@keyframes shadowScale {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(0.3); opacity: 0.1; }
+}
+
+.progress-bar-container {
+  width: 80%;
+  height: 12px;
+  background: #111;
+  border: 2px solid #8a2be2;
+  border-radius: 6px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b00, #38b6ff);
+  transition: width 0.3s;
+}
+
+/* ==========================================================================
+   2. INTRO & PLAYER CARD
+   ========================================================================== */
+.title-2k { font-size: 1.4rem; text-align: center; margin-bottom: 4px; }
+.subtitle-cozy { color: #38b6ff; font-size: 0.9rem; margin-bottom: 15px; }
+
+.player-card {
+  width: 90%;
+  background: linear-gradient(180deg, #161224 0%, #0a0a0c 100%);
+  border: 2px solid #ff6b00;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #8a2be2;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.ovr-badge {
+  background: #ff6b00;
+  color: #000;
+  border-radius: 8px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.ovr-num { font-size: 1.6rem; font-weight: bold; line-height: 1; }
+.ovr-label { font-size: 0.6rem; font-weight: bold; }
+
+.player-name { font-size: 1.3rem; color: #fff; letter-spacing: 1px; }
+.player-sub { font-size: 0.7rem; color: #38b6ff; }
+
+.card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.75rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-row .bar {
+  flex-grow: 1;
+  height: 6px;
+  background: #222;
+  margin: 0 8px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stat-row .bar div {
+  height: 100%;
+  background: linear-gradient(90deg, #8a2be2, #ff6b00);
+}
+
+.stat-row.highlight { color: #38b6ff; font-weight: bold; }
+.stat-inf { font-size: 1rem; color: #ff6b00; }
+
+.card-footer {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.badge-trophy {
+  background: rgba(138, 43, 226, 0.2);
+  border: 1px solid #8a2be2;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #ff6b00;
+}
+
+/* ==========================================================================
+   3. MENU & MODAL
+   ========================================================================== */
+.menu-options { display: flex; flex-direction: column; gap: 15px; width: 80%; }
+
+.modal {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex; justify-content: center; align-items: center;
+}
+
+.modal-content {
+  background: #120e1f;
+  border: 2px solid #38b6ff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   4. GAMEPLAY (CANVAS)
+   ========================================================================== */
+.hud {
+  position: absolute;
+  top: 15px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: bold;
+  z-index: 5;
+}
+
+#game-canvas {
+  width: 100%;
+  height: 80%;
+  background: radial-gradient(circle, #1a0f2e 0%, #050508 100%);
+  border-bottom: 2px solid #ff6b00;
+}
+
+.controls-hint {
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   5. LOCKER ROOM
+   ========================================================================== */
+.locker-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  width: 90%;
+  margin: 20px 0;
+}
+
+.locker-item {
+  background: #120e24;
+  border: 2px solid #8a2be2;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.locker-item:hover, .locker-item:active {
+  border-color: #ff6b00;
+  transform: translateY(-3px);
+}
+
+.pixel-art {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.jersey-art { color: #ff6b00; font-weight: bold; font-size: 1.5rem; }
+
+.dialogue-box {
+  min-height: 60px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed #38b6ff;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #38b6ff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   6. SHOT METER GAME
+   ========================================================================== */
+.shot-meter-container {
+  width: 80%;
+  height: 30px;
+  background: #222;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  position: relative;
+  margin: 30px 0;
+  overflow: hidden;
+}
+
+.shot-meter-target {
+  position: absolute;
+  left: 70%; width: 15%;
+  height: 100%;
+  background: #00ff66;
+  box-shadow: 0 0 10px #00ff66;
+}
+
+.shot-meter-indicator {
+  position: absolute;
+  left: 0%;
+  width: 8px;
+  height: 100%;
+  background: #ff6b00;
+  box-shadow: 0 0 8px #ff6b00;
+}
+
+.shot-feedback {
+  height: 25px;
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   7. BIRTHDAY LETTER (TYPEWRITER)
+   ========================================================================== */
+.letter-card {
+  width: 90%;
+  max-height: 70%;
+  background: #110d1f;
+  border: 2px solid #ff6b00;
+  border-radius: 10px;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.2);
+}
+
+.letter-title {
+  font-size: 1.1rem;
+  color: #ff6b00;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 6px;
+}
+
+.typewriter-content {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+  white-space: pre-wrap;
+}
+
+/* ==========================================================================
+   8. OUTRO & SPOTLIGHT
+   ========================================================================== */
+.spotlight {
+  position: absolute;
+  top: -20%; left: 30%;
+  width: 40%; height: 140%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+.ball-center {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.outro-text { font-size: 1.3rem; text-align: center; margin-bottom: 8px; }
+.outro-sub { font-size: 0.85rem; color: #38b6ff; }
+
+/* ==========================================================================
+   FLOATING NOTIFICATIONS / MESSAGES
+   ========================================================================== */
+#floating-popups {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+  pointer-events: none;
+  width: 80%;
+}
+
+.popup-msg {
+  background: rgba(138, 43, 226, 0.9);
+  border: 1px solid #38b6ff;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  animation: floatUpFade 3s forwards;
+}
+
+@keyframes floatUpFade {
+  0% { opacity: 0; transform: translateY(15px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-15px); }
+}
